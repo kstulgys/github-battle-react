@@ -5,6 +5,11 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Popular from './Popular';
 import AppBar from './Appbar'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -24,10 +29,17 @@ class App extends Component {
     const { classes } = this.props;
     return (
 
-      <div>
-        <AppBar />
-        <Popular />
-      </div>
+     
+        <Router>
+          <div>
+            <AppBar />
+            <Route path='/popular' component={Popular}></Route>
+          </div>
+        </Router>
+        
+        
+        
+      
       
     );
   }

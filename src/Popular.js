@@ -2,34 +2,55 @@ import React from 'react';
 import TabsLanguages from './TabsLanguages';
 import AllLanguages from './AllLanguages';
 import JavaScriptLanguage from './JavaScriptLanguage';
+import api from './utils/api'
+import RepoGrid from './RepoGrid';
+
 
 export default class Popular extends React.Component {
   state = {
-    value: 1,
+    value: 0,
+    selected: 'All',
+    repos: null
   };
+
+  componentDidMount () {
+    this.handleSelected(this.state.selected)
+  }
 
   handleChange = (event, value) => {
     console.log(value);
     this.setState({ value });
   };
 
-  render() {
+  handleSelected = (lang) => {
+    this.setState({ 
+      selected: lang,
+      repos: null
+    });
 
-    
+    api.fetchPopularRepos(lang)
+    .then((repos) => {
+      this.setState({
+        repos,
+      })
+    })
+  };
+
+  render() {
 
     return (
       <div>
       <TabsLanguages 
         value={this.state.value} 
+        selected={this.state.selected} 
         handleChange={this.handleChange} 
+        onSelect={this.handleSelected} 
         {...this.props}
       />
+      {!this.state.repos ? <h1>Loading...</h1> : 
+        <RepoGrid repos={this.state.repos}/>
+      }
       
-      {this.state.value === 0 && 
-      <AllLanguages />}
-      
-      {this.state.value === 1 && 
-      <JavaScriptLanguage />}
       </div>
     );
   }

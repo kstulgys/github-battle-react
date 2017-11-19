@@ -1,48 +1,59 @@
+// @flow weak
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+
+
+import {
+  NavLink
+} from 'react-router-dom'
 
 const styles = theme => ({
   root: {
     // marginTop: theme.spacing.unit * 3,
     width: '100%',
   },
-  flex: {
-    flex: 1,
+  active: {
+    fontWeight: 'bold',
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
+  topo: {
+    marginLeft: 15,
+  }
 });
 
-function ButtonAppBar(props) {
+function SimpleAppBar(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title" color="inherit" className={classes.flex}>
-            Title
+        <Typography type="title" color="inherit" className={classes.topo}>
+            <NavLink exact activeClassName={classes.active} to='/'>Home</NavLink>
+            <NavLink activeClassName={classes.active} to='/battle'>Battle</NavLink>
+            <NavLink activeClassName={classes.active} to='/popular'>Popular</NavLink> 
           </Typography>
-          <Button color="contrast">Login</Button>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
 
-ButtonAppBar.propTypes = {
+SimpleAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ButtonAppBar);
+export default withStyles(styles)(SimpleAppBar);
+
+{/* <div>
+<NavLink exact activeClassName={classes.active} to='/'>Home</NavLink>
+</div>
+<div>
+<NavLink activeClassName={classes.active} to='/battle'>Battle</NavLink>
+</div>
+<div>
+<NavLink activeClassName={classes.active} to='/popular'>Popular</NavLink>          
+</div> */}

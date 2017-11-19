@@ -6,7 +6,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     marginTop: theme.spacing.unit * 3,
-    fontWeight: 'bold',
+    
   },
 });
 
@@ -29,6 +29,7 @@ const TabLanguages = (props) => {
             <Tab
               key={lang}
               label={lang}
+              onClick={props.onSelect.bind(null, lang)}
             />
           )
           })}
