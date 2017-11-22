@@ -5,11 +5,15 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Popular from './Popular';
 import AppBar from './Appbar'
+import Home from './Home'
+import Battle from './Battle'
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -28,19 +32,21 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-
-     
         <Router>
           <div>
             <AppBar />
-            <Route path='/popular' component={Popular}></Route>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/battle' component={Battle} />
+              <Route path='/popular' component={Popular} />
+              <Route render={function () {
+                return <p>Not Found :(</p>
+              }} />
+
+            </Switch>
           </div>
         </Router>
-        
-        
-        
-      
-      
+
     );
   }
 }

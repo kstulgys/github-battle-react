@@ -6,47 +6,68 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
+import { NavLink } from 'react-router-dom'
 
 
-import {
-  NavLink
-} from 'react-router-dom'
 
 const styles = theme => ({
   root: {
-    // marginTop: theme.spacing.unit * 3,
     width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  ulStyles: {
+    listStyleType: 'none',
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+  liItem: {
+    marginLeft: 20,
   },
   active: {
     fontWeight: 'bold',
+    fontSize: 25,
+    
   },
-  topo: {
-    marginLeft: 15,
-  }
+
 });
 
-function SimpleAppBar(props) {
+const navLink = {
+    color: '#ffffff',
+    textDecoration: 'none',
+};
+
+
+function ButtonAppBar(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-        <Typography type="title" color="inherit" className={classes.topo}>
-            <NavLink exact activeClassName={classes.active} to='/'>Home</NavLink>
-            <NavLink activeClassName={classes.active} to='/battle'>Battle</NavLink>
-            <NavLink activeClassName={classes.active} to='/popular'>Popular</NavLink> 
+          <Typography type="title" color="inherit" className={classes.flex}>
+            <ul className={classes.ulStyles}>
+              <li className={classes.liItem}><NavLink  exact activeClassName={classes.active} to='/' style={navLink}>Home</NavLink></li>
+              <li className={classes.liItem}><NavLink activeClassName={classes.active} to='/battle' style={navLink}>Battle</NavLink></li>
+              <li className={classes.liItem}><NavLink activeClassName={classes.active} to='/popular' style={navLink}>Popular</NavLink> </li>
+            </ul>
           </Typography>
+          <Button color="contrast">Login</Button>
+          
         </Toolbar>
       </AppBar>
     </div>
   );
 }
 
-SimpleAppBar.propTypes = {
+ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleAppBar);
+export default withStyles(styles)(ButtonAppBar);
 
 {/* <div>
 <NavLink exact activeClassName={classes.active} to='/'>Home</NavLink>

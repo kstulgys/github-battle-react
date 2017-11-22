@@ -4,6 +4,17 @@ import AllLanguages from './AllLanguages';
 import JavaScriptLanguage from './JavaScriptLanguage';
 import api from './utils/api'
 import RepoGrid from './RepoGrid';
+import Loader from './Loader';
+
+
+const container = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignContent: 'center',
+
+};
+
+
 
 
 export default class Popular extends React.Component {
@@ -47,7 +58,13 @@ export default class Popular extends React.Component {
         onSelect={this.handleSelected} 
         {...this.props}
       />
-      {!this.state.repos ? <h1>Loading...</h1> : 
+      {!this.state.repos ? 
+      <div style={container}>
+        
+        <Loader/> 
+
+      </div>
+      : 
         <RepoGrid repos={this.state.repos}/>
       }
       
