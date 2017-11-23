@@ -29,7 +29,6 @@ export default class Popular extends React.Component {
   }
 
   handleChange = (event, value) => {
-    console.log(value);
     this.setState({ value });
   };
 
