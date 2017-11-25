@@ -1,5 +1,3 @@
-// @flow weak
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
@@ -54,9 +52,7 @@ function ButtonAppBar(props) {
               <li className={classes.liItem}><NavLink activeClassName={classes.active} to='/battle' style={navLink}>Battle</NavLink></li>
               <li className={classes.liItem}><NavLink activeClassName={classes.active} to='/popular' style={navLink}>Popular</NavLink> </li>
             </ul>
-          </Typography>
-          <Button color="contrast">Login</Button>
-          
+          </Typography>       
         </Toolbar>
       </AppBar>
     </div>

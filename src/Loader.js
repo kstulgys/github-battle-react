@@ -1,30 +1,62 @@
-// @flow weak
-
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import { LinearProgress } from 'material-ui/Progress';
+
 
 const styles = {
-  root: {
-    width: '100%',
-    marginTop: 30,
-  },
-};
-
-function LinearIndeterminate(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <LinearProgress />
-      <br />
-      <LinearProgress color="accent" />
-    </div>
-  );
+  content: {
+    textAlign: 'center',
+    fontSize: '30px',
+  }
 }
 
-LinearIndeterminate.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+class Loader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: props.text
+    }
+  }
+  componentDidMount () {
+    const stopper = this.props.text + '...';
+    this.interval = window.setInterval(() => {
+      if (this.state.text === stopper) {
+        this.setState(function () {
+          return {
+            text: this.props.text
+          }
+        })
+      } else {
+        this.setState(function (prevState) {
+          return {
+            text: prevState.text + '.'
+          }
+        })
+      }
+    }, this.props.speed)
+  }
 
-export default withStyles(styles)(LinearIndeterminate);
+  componentWillUnmount () {
+    console.log('cleared interval')
+    window.clearInterval(this.interval)
+  }
+
+  render() {
+    return (
+      <p style={styles.content}>
+        {this.state.text}
+      </p>
+    );
+  }
+}
+
+Loader.propTypes = {
+  text: PropTypes.string.isRequired,
+  speed: PropTypes.number.isRequired,
+}
+
+Loader.defaultProps = {
+  text: 'Loading',
+  speed: 300,
+}
+
+export default Loader;

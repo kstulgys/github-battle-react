@@ -7,16 +7,6 @@ import RepoGrid from './RepoGrid';
 import Loader from './Loader';
 
 
-const container = {
-  display: 'flex',
-  flexDirection: 'row',
-  alignContent: 'center',
-
-};
-
-
-
-
 export default class Popular extends React.Component {
   state = {
     value: 0,
@@ -50,23 +40,17 @@ export default class Popular extends React.Component {
 
     return (
       <div>
-      <TabsLanguages 
-        value={this.state.value} 
-        selected={this.state.selected} 
-        handleChange={this.handleChange} 
-        onSelect={this.handleSelected} 
-        {...this.props}
-      />
-      {!this.state.repos ? 
-      <div style={container}>
-        
-        <Loader/> 
-
-      </div>
-      : 
-        <RepoGrid repos={this.state.repos}/>
-      }
-      
+        <TabsLanguages 
+          value={this.state.value} 
+          selected={this.state.selected} 
+          handleChange={this.handleChange} 
+          onSelect={this.handleSelected} 
+          {...this.props}
+        />
+        {!this.state.repos 
+        ? <Loader /> 
+        : <RepoGrid repos={this.state.repos}/>
+        }
       </div>
     );
   }

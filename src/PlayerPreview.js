@@ -10,11 +10,11 @@ import Typography from 'material-ui/Typography';
 
 const styles = {
   card: {
-    maxWidth: 345,
-    margin: 50,
+    margin: 10,
   },
   media: {
     height: 300,
+    width: 300,
   },
 };
 
@@ -33,15 +33,9 @@ function PlayerPreview(props) {
             {props.username}
           </Typography>
           <Typography component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            {props.children}
           </Typography>
         </CardContent>
-        <CardActions>
-          <Button dense color="primary" onClick={props.onReset.bind(null, props.id)}>
-            Reset
-          </Button>
-        </CardActions>
       </Card>
     </div>
   );

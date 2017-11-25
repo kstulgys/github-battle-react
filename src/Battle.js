@@ -79,9 +79,12 @@ class Battle extends Component {
           <PlayerPreview
             avatar={playerOneImage}
             username={playerOneName}
-            id='playerOne'
-            onReset={this.handleReset}
-           />}
+           >
+           <Button dense color="primary" 
+              onClick={this.handleReset.bind(null, 'playerOne')}>
+              Reset
+            </Button>
+          </PlayerPreview>}
 
         {!playerTwoName && 
         <PlayerInput
@@ -94,16 +97,19 @@ class Battle extends Component {
           <PlayerPreview
             avatar={playerTwoImage}
             username={playerTwoName}
-            id='playerTwo'
-            onReset={this.handleReset}
-           />}
+           >
+            <Button dense color="primary" 
+              onClick={this.handleReset.bind(null, 'playerTwo')}>
+              Reset
+            </Button>
+          </PlayerPreview>}
       </div>
           <div className={classes.button}>
             {playerOneImage && playerTwoImage &&
               <Button raised color="primary" >
                 <Link className={classes.buttonLink}
                   to={{
-                    pathname: match.url + 'results',
+                    pathname: match.url + '/results',
                     state: { playerOneName: playerOneName, playerTwoName: playerTwoName }
                   }}> Fight!
                 </Link>
