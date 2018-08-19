@@ -1,0 +1,31 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Button, Avatar, Typography } from '@material-ui/core'
+
+const styles = {
+  card: {
+    margin: 10
+  },
+  media: {
+    height: 300,
+    width: 300
+  }
+}
+
+const PlayerPreview = props => {
+  return (
+    <div
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+    >
+      <Avatar
+        alt="Adelle Charles"
+        src={props.avatar}
+        style={{ height: 200, width: 200 }}
+      />
+      <Typography variant="headline">{props.username}</Typography>
+      <div>{props.children}</div>
+    </div>
+  )
+}
+
+export default PlayerPreview

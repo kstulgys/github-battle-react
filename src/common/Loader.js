@@ -1,32 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-
-const styles = {
-  content: {
-    textAlign: 'center',
-    fontSize: '30px',
-  }
-}
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class Loader extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       text: props.text
     }
   }
-  componentDidMount () {
-    const stopper = this.props.text + '...';
+  componentDidMount() {
+    const stopper = this.props.text + '...'
     this.interval = window.setInterval(() => {
       if (this.state.text === stopper) {
-        this.setState(function () {
+        this.setState(function() {
           return {
             text: this.props.text
           }
         })
       } else {
-        this.setState(function (prevState) {
+        this.setState(function(prevState) {
           return {
             text: prevState.text + '.'
           }
@@ -35,28 +27,24 @@ class Loader extends Component {
     }, this.props.speed)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     console.log('cleared interval')
     window.clearInterval(this.interval)
   }
 
   render() {
-    return (
-      <p style={styles.content}>
-        {this.state.text}
-      </p>
-    );
+    return <p>{this.state.text}</p>
   }
 }
 
 Loader.propTypes = {
   text: PropTypes.string.isRequired,
-  speed: PropTypes.number.isRequired,
+  speed: PropTypes.number.isRequired
 }
 
 Loader.defaultProps = {
   text: 'Loading',
-  speed: 300,
+  speed: 300
 }
 
-export default Loader;
+export default Loader

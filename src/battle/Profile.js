@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import React from 'react'
+import PropTypes from 'prop-types'
 import PlayerPreview from './PlayerPreview'
 
-const Profile = (props) => {
+const Profile = props => {
   const info = props.info
   return (
     <div>
@@ -15,10 +14,14 @@ const Profile = (props) => {
           <li>Followers: {info.followers}</li>
           <li>Following: {info.following}</li>
           <li>Public Repos: {info.public_repos}</li>
-          {info.blog && <li><a href={info.blog}>{info.blog}</a></li>}
+          {info.blog && (
+            <li>
+              <a href={info.blog}>{info.blog}</a>
+            </li>
+          )}
         </ul>
       </PlayerPreview>
     </div>
-  );
-};
+  )
+}
 export default Profile
