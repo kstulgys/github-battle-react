@@ -23,7 +23,9 @@ const PlayerPreview = props => {
         style={{ height: 200, width: 200 }}
       />
       <Typography variant="headline">{props.username}</Typography>
-      <div>{props.children}</div>
+      <Button color="primary" onClick={() => props.onHandleReset(props.player)}>
+        Reset
+      </Button>
     </div>
   )
 }

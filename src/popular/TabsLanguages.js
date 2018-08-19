@@ -1,6 +1,4 @@
 import React from 'react'
-// import Tabs, { Tab } from 'material-ui/Tabs';
-import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
@@ -18,11 +16,7 @@ const TabLanguages = props => {
       >
         {languages.map(lang => {
           return (
-            <Tab
-              key={lang}
-              label={lang}
-              onClick={props.onSelect.bind(null, lang)}
-            />
+            <Tab key={lang} label={lang} onClick={() => props.onSelect(lang)} />
           )
         })}
       </Tabs>

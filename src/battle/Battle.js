@@ -25,11 +25,11 @@ class Battle extends Component {
   }
 
   handleReset = id => {
-    this.setState(function() {
-      let newState = {}
-      newState[id + 'Name'] = ''
-      newState[id + 'Image'] = null
-      return newState
+    let newState = {}
+    newState[id + 'Name'] = ''
+    newState[id + 'Image'] = null
+    this.setState({
+      newState
     })
   }
 
@@ -66,16 +66,13 @@ class Battle extends Component {
               />
             )}
 
-            {playerOneImage !== null && (
-              <PlayerPreview avatar={playerOneImage} username={playerOneName}>
-                <Button
-                  dense
-                  color="primary"
-                  onClick={this.handleReset.bind(null, 'playerOne')}
-                >
-                  Reset
-                </Button>
-              </PlayerPreview>
+            {playerOneImage && (
+              <PlayerPreview
+                avatar={playerOneImage}
+                username={playerOneName}
+                player="playerOne"
+                onHandleReset={this.handleReset}
+              />
             )}
           </div>
 
@@ -88,16 +85,13 @@ class Battle extends Component {
               />
             )}
 
-            {playerTwoImage !== null && (
-              <PlayerPreview avatar={playerTwoImage} username={playerTwoName}>
-                <Button
-                  dense
-                  color="primary"
-                  onClick={this.handleReset.bind(null, 'playerTwo')}
-                >
-                  Reset
-                </Button>
-              </PlayerPreview>
+            {playerTwoImage && (
+              <PlayerPreview
+                avatar={playerTwoImage}
+                username={playerTwoName}
+                player="playerTwo"
+                onHandleReset={this.handleReset}
+              />
             )}
           </div>
         </div>

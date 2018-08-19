@@ -1,7 +1,5 @@
 import React from 'react'
 import TabsLanguages from './TabsLanguages'
-import AllLanguages from './AllLanguages'
-import JavaScriptLanguage from './JavaScriptLanguage'
 import api from '../utils/api'
 import RepoGrid from './RepoGrid'
 import Loader from '../common/Loader'
@@ -29,6 +27,7 @@ export default class Popular extends React.Component {
 
     api.fetchPopularRepos(lang).then(repos => {
       this.setState({
+        selected: lang,
         repos
       })
     })
