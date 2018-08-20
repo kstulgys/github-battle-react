@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Button, Toolbar, Typography } from '@material-ui/core'
 
 const componentName = props => {
-  const { classes } = props
   return (
-    <div className={classes.errorMessage}>
+    <div>
       <Typography type="title" gutterBottom>
         {props.error}
       </Typography>
       <Button raised color="primary">
-        <Link to="/battle" className={classes.button}>
-          Reset
-        </Link>
+        <Link to="/battle">Reset</Link>
       </Button>
     </div>
   )

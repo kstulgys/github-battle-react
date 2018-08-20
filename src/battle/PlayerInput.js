@@ -13,14 +13,14 @@ class PlayerInput extends Component {
   }
 
   handleChange = e => {
-    console.log('username', e.target.value)
+    // console.log('username', e.target.value)
     this.setState({ username: e.target.value })
   }
 
   handleSubmit = event => {
     event.preventDefault()
     this.props.onSubmit(this.props.id, this.state.username)
-    console.log('submitting')
+    // console.log('submitting')
   }
 
   render() {
