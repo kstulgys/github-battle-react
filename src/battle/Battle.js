@@ -14,16 +14,16 @@ class Battle extends Component {
 			playerOneName: "",
 			playerTwoName: "",
 			playerOneImage: null,
-			playerTwoImage: null
+			playerTwoImage: null,
+			playersNumber: 2
 		}
 	}
 
 	handleSubmit = (id, username) => {
-		console.log("submitting from Battle")
-		let newState = {}
-		newState[id + "Name"] = username
-		newState[id + "Image"] = `https://github.com/${username}.png?size=200`
-		this.setState(newState)
+		this.setState({
+			[id + "Name"]: username,
+			[id + "Image"]: `https://github.com/${username}.png?size=200`
+		})
 	}
 
 	handleReset = id => {
@@ -34,11 +34,14 @@ class Battle extends Component {
 	}
 
 	render() {
-		const match = this.props.match
-		const playerOneName = this.state.playerOneName
-		const playerTwoName = this.state.playerTwoName
-		const playerOneImage = this.state.playerOneImage
-		const playerTwoImage = this.state.playerTwoImage
+		const { match } = this.props
+		const {
+			playerOneName,
+			playerTwoName,
+			playerOneImage,
+			playerTwoImage,
+			playersNumber
+		} = this.state.playerOneName
 
 		return (
 			<div
@@ -55,6 +58,12 @@ class Battle extends Component {
 						justifyContent: "space-around",
 						alignContent: "center"
 					}}>
+					{/* 
+					Array(playersNumber).fill(0).
+					R.map()
+					R.times(R.identity, playersNumber).map()
+					
+					 */}
 					<div>
 						{!playerOneName && (
 							<PlayerInput
@@ -75,7 +84,6 @@ class Battle extends Component {
 							</div>
 						)}
 					</div>
-
 					<div>
 						{!playerTwoName && (
 							<PlayerInput
