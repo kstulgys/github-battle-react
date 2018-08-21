@@ -8,10 +8,11 @@ const Player = props => {
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <Typography>{props.label}</Typography>
       <Typography>Score: {props.score}</Typography>
       <Profile info={props.profile} />
     </div>
   )
 }
 export default Player
+
+// <Typography>{props.label}</Typography>
