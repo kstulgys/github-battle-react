@@ -3,7 +3,6 @@ import PlayerInput from "./PlayerInput"
 import PlayerPreview from "./PlayerPreview"
 import { Button, Toolbar, Typography } from "@material-ui/core"
 import FightButton from "./FightButton"
-import ResetButton from "./ResetButton"
 import R from "ramda"
 import { Link } from "react-router-dom"
 import uid from "uid"
@@ -55,18 +54,21 @@ class Battle extends Component {
 	render() {
 		const { match } = this.props
 		const { players } = this.state
-		const userNames = R.pipe(R.map(x => x.username))(players)
+		const userNames = R.pipe(
+			R.filter(x => x.username),
+			R.map(x => x.username)
+		)(players)
 		console.log(userNames)
 		return (
 			<div
 				style={{
-					height: "100vh",
+					height: "100%",
 					paddingTop: "10vh"
 				}}>
 				<div
 					style={{
 						display: "flex",
-						justifyContent: "space-evenly",
+						justifyContent: "center",
 						flexWrap: "wrap"
 					}}>
 					{R.addIndex(R.map)(
@@ -91,7 +93,7 @@ class Battle extends Component {
 					style={{
 						display: "flex",
 						justifyContent: "center",
-						padding: 20
+						margin: 20
 					}}>
 					<Button onClick={this.handleAddPlayer}>Add more players</Button>
 					<FightButton match={match} userNames={userNames} />

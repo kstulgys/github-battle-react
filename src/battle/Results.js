@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { sortAllPlayers } from "../utils/api"
+import { sortAllPlayers } from "../api"
 import { Link } from "react-router-dom"
 import PlayerPreview from "./PlayerPreview"
 import Player from "./Player"
@@ -45,14 +45,14 @@ class Results extends Component {
 				<div
 					style={{
 						display: "flex",
-						justifyContent: "space-evenly",
-						marginTop: "20vh"
+						justifyContent: "center",
+						paddingTop: "10%"
 					}}>
 					{R.map(({ score, profile }) => (
 						<Player score={score} profile={profile} />
 					))(results)}
 				</div>
-				<div style={{ textAlign: "center", padding: 30 }}>
+				<div style={{ textAlign: "center", margin: 30 }}>
 					<Button onClick={() => this.props.history.push("/battle")}>
 						Reset
 					</Button>

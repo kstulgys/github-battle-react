@@ -13,21 +13,19 @@ class PlayerInput extends Component {
 		submitted: false
 	}
 
-	handleChange = e => {
-		// console.log('username', e.target.value)
-		this.setState({ username: e.target.value })
+	handleChange = ({ target: { value } }) => {
+		this.setState({ username: value })
 	}
 
-	handleSubmit = event => {
-		event.preventDefault()
+	handleSubmit = e => {
+		e.preventDefault()
 		this.props.onSubmit(this.props.id, this.state.username)
 		this.setState({ submitted: true })
-		// console.log('submitting')
 	}
 
 	render() {
 		return (
-			<div style={{ padding: 15 }}>
+			<div style={{ padding: 20 }}>
 				<form onSubmit={this.handleSubmit}>
 					<div
 						style={{
@@ -35,7 +33,8 @@ class PlayerInput extends Component {
 							flexDirection: "column",
 							alignItems: "center",
 							justifyContent: "space-around",
-							minHeight: 200,
+							height: 300,
+							width: 300,
 							border: "1px solid red"
 						}}>
 						<Typography variant="title" gutterBottom>

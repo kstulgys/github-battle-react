@@ -1,51 +1,11 @@
+import {
+	getAllProfilesAndRepos,
+	getAllWithScore,
+	getAllSortedByScore,
+	handleError
+} from "./helpers"
 import R from "ramda"
 const log = R.tap(console.log)
-
-const handleError = error => {
-	console.warn(error)
-	return null
-}
-
-const getProfile = async username => {
-	const profile = await fetch(`https://api.github.com/users/${username}`)
-	return profile.json()
-}
-const getRepos = async username => {
-	const repos = await fetch(`https://api.github.com/users/${username}/repos`)
-	return repos.json()
-}
-
-const getData = async player => {
-	const [profile, repos] = await Promise.all([
-		getProfile(player),
-		getRepos(player)
-	])
-	return {
-		profile,
-		repos
-	}
-}
-
-const getFolowers = R.pipe(
-	R.prop("profile"),
-	R.prop("followers")
-)
-const getStars = R.pipe(
-	R.prop("repos"),
-	R.map(n => n.stargazers_count),
-	R.reduce(R.add, 0)
-)
-
-const calcScore = (x, y) => ({
-	score: x * 3 + y
-})
-
-const getAllProfilesAndRepos = async players =>
-	await Promise.all(R.map(getData, players))
-const getScore = R.converge(calcScore, [x => getFolowers(x), x => getStars(x)])
-const withScore = R.converge(R.merge, [x => getScore(x), x => x])
-const getAllWithScore = R.map(withScore)
-const getAllSortedByScore = R.sortWith([R.descend(R.prop("score"))])
 
 export const sortAllPlayers = R.pipeP(
 	getAllProfilesAndRepos,
@@ -59,6 +19,15 @@ export const fetchPopularRepos = async language => {
 	const repos = await response.json()
 	return repos.items
 }
+
+// const url = language =>
+// 	`https://api.github.com/search/repositories?q=>1+language:${language}&sort=stars&order=desc`
+
+// export const fetchPopularRepos = R.curry(
+// 	fetch(url)
+// 		.then(resp => resp.json())
+// 		.then(repos => repos.items)
+// )
 
 // const getProfile = async username => {
 // 	const resp = await fetch(`https://api.github.com/users/${username}`)
