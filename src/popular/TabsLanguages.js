@@ -1,10 +1,11 @@
 import React from 'react'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
+import { Tabs, Tab } from '@material-ui/core'
+// import Tab from '@material-ui/core/Tab'
+import R from 'ramda'
+const log = R.tap(console.log)
 
+const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python']
 const TabLanguages = props => {
-  const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python']
-
   return (
     <div style={{ marginTop: 100, marginBottom: 50 }}>
       <Tabs
@@ -14,11 +15,9 @@ const TabLanguages = props => {
         textColor="primary"
         centered
       >
-        {languages.map(lang => {
-          return (
-            <Tab key={lang} label={lang} onClick={() => props.onSelect(lang)} />
-          )
-        })}
+        {R.map(lang => (
+          <Tab key={lang} label={lang} onClick={() => props.onSelect(lang)} />
+        ))(languages)}
       </Tabs>
     </div>
   )

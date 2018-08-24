@@ -2,49 +2,28 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class Loader extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      text: props.text
-    }
+  state = {
+    text: 'Loading'
   }
   componentDidMount() {
-    const stopper = this.props.text + '...'
-    this.interval = window.setInterval(() => {
+    const stopper = this.state.text + '...'
+    setInterval(() => {
       if (this.state.text === stopper) {
-        this.setState(function() {
-          return {
-            text: this.props.text
-          }
-        })
+        this.setState({ text: 'Loading' })
       } else {
-        this.setState(function(prevState) {
-          return {
-            text: prevState.text + '.'
-          }
-        })
+        this.setState(({ text }) => ({ text: text + '.' }))
       }
-    }, this.props.speed)
+    }, 300)
   }
 
   componentWillUnmount() {
-    console.log('cleared interval')
-    window.clearInterval(this.interval)
+    // console.log('cleared interval')
+    clearInterval()
   }
 
   render() {
     return <p>{this.state.text}</p>
   }
-}
-
-Loader.propTypes = {
-  text: PropTypes.string.isRequired,
-  speed: PropTypes.number.isRequired
-}
-
-Loader.defaultProps = {
-  text: 'Loading',
-  speed: 300
 }
 
 export default Loader
