@@ -1,15 +1,11 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Avatar } from '@material-ui/core'
-import R from 'ramda'
+import * as R from 'ramda'
+
 const log = R.tap(console.log)
 
-const Repo = ({
-  owner: { login, avatar_url },
-  name,
-  html_url,
-  stargazers_count
-}) => {
+const Repo = ({ owner: { login, avatar_url }, name, html_url, stargazers_count }) => {
   // console.log("got here", name)
   return (
     <div
@@ -22,11 +18,7 @@ const Repo = ({
         height: 200
       }}
     >
-      <Avatar
-        alt="Adelle Charles"
-        src={avatar_url}
-        style={{ height: 100, width: 100 }}
-      />
+      <Avatar alt="Adelle Charles" src={avatar_url} style={{ height: 100, width: 100 }} />
       <div href={html_url}>{name}</div>
       <div>@{login}</div>
       <div>{stargazers_count} stars</div>

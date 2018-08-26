@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Toolbar, Typography } from '@material-ui/core'
 
-const componentName = props => {
+const ErrorComp = props => {
   return (
     <div>
       <Typography type="title" gutterBottom>
@@ -15,4 +15,4 @@ const componentName = props => {
   )
 }
 
-export default componentName
+export default ErrorComp

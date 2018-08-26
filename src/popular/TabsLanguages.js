@@ -1,7 +1,8 @@
 import React from 'react'
 import { Tabs, Tab } from '@material-ui/core'
 // import Tab from '@material-ui/core/Tab'
-import R from 'ramda'
+import * as R from 'ramda'
+
 const log = R.tap(console.log)
 
 const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python']

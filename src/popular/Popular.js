@@ -4,7 +4,7 @@ import TabsLanguages from './TabsLanguages'
 import { fetchPopularRepos } from '../api'
 import ReposGrid from './ReposGrid'
 import Loader from '../common/Loader'
-import R from 'ramda'
+import * as R from 'ramda'
 const log = R.tap(console.log)
 
 export default class Popular extends React.Component {
@@ -51,11 +51,7 @@ export default class Popular extends React.Component {
           onSelect={this.handleSelected}
           {...this.props}
         />
-        {!this.state.repos ? (
-          <Loader />
-        ) : (
-          <ReposGrid repos={this.state.repos} />
-        )}
+        {!this.state.repos ? <Loader /> : <ReposGrid repos={this.state.repos} />}
       </div>
     )
   }

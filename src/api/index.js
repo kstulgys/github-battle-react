@@ -1,23 +1,23 @@
 import {
-	getAllProfilesAndRepos,
-	getAllWithScore,
-	getAllSortedByScore,
-	handleError
-} from "./helpers"
-import R from "ramda"
+  getAllProfilesAndRepos,
+  getAllWithScore,
+  getAllSortedByScore,
+  handleError
+} from './helpers'
+import * as R from 'ramda'
 const log = R.tap(console.log)
 
 export const sortAllPlayers = R.pipeP(
-	getAllProfilesAndRepos,
-	getAllWithScore,
-	getAllSortedByScore
+  getAllProfilesAndRepos,
+  getAllWithScore,
+  getAllSortedByScore
 )
 
 export const fetchPopularRepos = async language => {
-	const url = `https://api.github.com/search/repositories?q=>1+language:${language}&sort=stars&order=desc`
-	const response = await fetch(url).catch(handleError)
-	const repos = await response.json()
-	return repos.items
+  const url = `https://api.github.com/search/repositories?q=>1+language:${language}&sort=stars&order=desc`
+  const response = await fetch(url).catch(handleError)
+  const repos = await response.json()
+  return repos.items
 }
 
 // const url = language =>
