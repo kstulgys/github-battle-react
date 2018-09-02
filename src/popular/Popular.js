@@ -1,5 +1,5 @@
 import React from 'react'
-// import { compose, withStateHandlers, lifecycle } from 'recompose'
+import { compose, withStateHandlers, lifecycle } from 'recompose'
 import TabsLanguages from './TabsLanguages'
 import { fetchPopularRepos } from '../api'
 import ReposGrid from './ReposGrid'
@@ -18,22 +18,22 @@ export default class Popular extends React.Component {
     this.handleSelected(this.state.selected)
   }
 
-  handleChange = this.setState({ value: R.path(['target', 'value']) })
+  handleChange = (e, value) => {
+    this.setState({ value })
+  }
 
-  handleSelected = R.pipe(
-    lang =>
+  handleSelected = lang => {
+    this.setState({
+      selected: lang,
+      repos: null
+    })
+    fetchPopularRepos(lang).then(repos => {
       this.setState({
         selected: lang,
-        repos: null
-      }),
-    lang =>
-      fetchPopularRepos(lang).then(repos => {
-        this.setState({
-          selected: lang,
-          repos
-        })
+        repos
       })
-  )
+    })
+  }
 
   render() {
     return (
