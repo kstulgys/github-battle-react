@@ -1,108 +1,81 @@
-import React from 'react'
-import { compose, withStateHandlers, lifecycle } from 'recompose'
-import TabsLanguages from './TabsLanguages'
-import { fetchPopularRepos } from '../api'
-import ReposGrid from './ReposGrid'
-import Loader from '../common/Loader'
-import * as R from 'ramda'
-const log = R.tap(console.log)
+import React from "react"
+import { compose, withStateHandlers, lifecycle } from "recompose"
+import LangMenu from "./LangMenu"
+import { fetchPopularRepos } from "../api"
+import ReposGrid from "./ReposGrid"
 
-export default class Popular extends React.Component {
-  state = {
-    value: 0,
-    selected: 'All',
-    repos: null
-  }
-
-  componentDidMount() {
-    this.handleSelected(this.state.selected)
-  }
-
-  handleChange = (e, value) => {
-    this.setState({ value })
-  }
-
-  handleSelected = lang => {
-    this.setState({
-      selected: lang,
-      repos: null
-    })
-    fetchPopularRepos(lang).then(repos => {
-      this.setState({
-        selected: lang,
-        repos
-      })
-    })
-  }
-
-  render() {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        }}
-      >
-        <TabsLanguages
-          value={this.state.value}
-          selected={this.state.selected}
-          handleChange={this.handleChange}
-          onSelect={this.handleSelected}
-          {...this.props}
-        />
-        {!this.state.repos ? <Loader /> : <ReposGrid repos={this.state.repos} />}
-      </div>
-    )
-  }
+const Popular = ({
+	value,
+	selected,
+	repos,
+	onChangeLanguage,
+	onSelectLanguage
+}) => {
+	// console.log(value, selected, repos)
+	return (
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center"
+			}}>
+			<LangMenu
+				value={value}
+				selected={selected}
+				handleChange={onChangeLanguage}
+				onSelect={onSelectLanguage}
+			/>
+			<ReposGrid repos={repos} />
+		</div>
+	)
 }
 
-// const Popular = ({ value, selected, repos }) => {
-//   console.log(value, selected, repos)
+// Recompose...
 
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         flexDirection: 'column',
-//         alignItems: 'center'
-//       }}
-//     >
-//       {!repos ? <Loader /> : <ReposGrid repos={repos} />}
-//     </div>
-//   )
-// }
+const initialState = {
+	value: 0,
+	selected: "All",
+	repos: []
+}
 
-// export default compose(
-//   withStateHandlers(
-//     ({ value = 0, selected = 'All', repos = null }) => ({
-//       value,
-//       selected,
-//       repos
-//     }),
-//     {
-//       incrementOn: ({ counter }) => value => ({
-//         counter: counter + value
-//       }),
-//       handleSelected: R.pipe(
-//         lang =>
-//           this.setState({
-//             selected: lang,
-//             repos: null
-//           }),
-//         lang =>
-//           fetchPopularRepos(lang).then(repos => {
-//             this.setState({
-//               selected: lang,
-//               repos
-//             })
-//           })
-//       )
-//     }
-//   ),
-//   lifecycle({
-//     componentDidMount() {
-//       this.handleSelected(this.state.selected)
-//     }
-//   })
-// )(Popular)
+const onChangeLanguage = props => (event, value) => ({
+	value
+})
+
+const onSelectLanguage = props => lang => ({
+	selected: lang
+})
+
+const onDidMount = lifecycle({
+	componentDidMount() {
+		fetchPopularRepos(this.props.selected).then(repos => {
+			this.setState({
+				repos
+			})
+		})
+	}
+})
+
+const onDidUpdate = lifecycle({
+	componentDidUpdate(prevProps) {
+		if (this.props.selected !== prevProps.selected) {
+			this.setState({ repos: [] })
+			fetchPopularRepos(this.props.selected).then(repos => {
+				this.setState({
+					repos
+				})
+			})
+		}
+	}
+})
+
+const handleState = withStateHandlers(initialState, {
+	onChangeLanguage,
+	onSelectLanguage
+})
+
+export default compose(
+	handleState,
+	onDidMount,
+	onDidUpdate
+)(Popular)
