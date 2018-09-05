@@ -1,20 +1,10 @@
 import React, { Fragment } from "react"
 import PropTypes from "prop-types"
-import {
-	compose,
-	withStateHandlers,
-	lifecycle,
-	renderNothing,
-	branch,
-	renderComponent,
-	withHandlers,
-	mapProps,
-	renameProp
-} from "recompose"
+import { compose, branch, renderComponent, mapProps } from "recompose"
 import { Avatar } from "@material-ui/core"
 import Loader from "../common/Loader"
 import * as R from "ramda"
-const log = R.tap(console.log)
+// const log = R.tap(console.log)
 
 const Repo = ({
 	owner: { login, avatar_url },

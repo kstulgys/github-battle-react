@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import PlayerPreview from "./PlayerPreview"
+import PlayerPreview from "../PlayerPreview"
 import { Button, ListItem, List, ListItemText } from "@material-ui/core"
 const Profile = ({ info }) => {
 	return (

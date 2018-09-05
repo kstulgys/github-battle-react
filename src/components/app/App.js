@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react"
 import PropTypes from "prop-types"
 import Popular from "../popular"
-import AppBar from "./Appbar"
+import AppNavBar from "../app-navbar"
 import Home from "../home"
 import Battle from "../battle"
-import Results from "../battle/Results"
+import Results from "../battle/results/Results"
 import { CssBaseline } from "@material-ui/core"
 
 import {
@@ -18,21 +18,21 @@ import {
 class App extends Component {
 	render() {
 		return (
-			<Fragment style={{ height: "100%", width: "100%", overflowX: "hidden" }}>
+			<div>
 				<CssBaseline />
 				<Router>
 					<div>
-						<AppBar />
+						<AppNavBar />
 						<Switch>
 							<Route exact path="/" component={Home} />
 							<Route exact path="/battle" component={Battle} />
 							<Route path="/battle/results" component={Results} />
 							<Route path="/popular" component={Popular} />
-							<Route render={() => <p>Not Found :(</p>} />
+							<Route render={() => <p>Nothing Was Found :(</p>} />
 						</Switch>
 					</div>
 				</Router>
-			</Fragment>
+			</div>
 		)
 	}
 }

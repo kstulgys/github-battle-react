@@ -1,7 +1,7 @@
 import React from "react"
 import { compose, withStateHandlers, lifecycle } from "recompose"
 import LangMenu from "./LangMenu"
-import { fetchPopularRepos } from "../api"
+import { fetchPopularRepos } from "../../api"
 import ReposGrid from "./ReposGrid"
 
 const Popular = ({
@@ -38,25 +38,16 @@ const initialState = {
 	repos: []
 }
 
-const onChangeLanguage = props => (event, value) => ({
-	value
-})
-
-const onSelectLanguage = props => lang => ({
-	selected: lang
-})
-
-const onDidMount = lifecycle({
+const onDidMountAndUpdate = lifecycle({
 	componentDidMount() {
-		fetchPopularRepos(this.props.selected).then(repos => {
-			this.setState({
-				repos
+		fetchPopularRepos(this.props.selected)
+			.then(repos => {
+				this.setState({
+					repos
+				})
 			})
-		})
-	}
-})
-
-const onDidUpdate = lifecycle({
+			.catch(e => console.log(e))
+	},
 	componentDidUpdate(prevProps) {
 		if (this.props.selected !== prevProps.selected) {
 			this.setState({ repos: [] })
@@ -70,12 +61,15 @@ const onDidUpdate = lifecycle({
 })
 
 const handleState = withStateHandlers(initialState, {
-	onChangeLanguage,
-	onSelectLanguage
+	onChangeLanguage: props => (event, value) => ({
+		value
+	}),
+	onSelectLanguage: props => lang => ({
+		selected: lang
+	})
 })
 
 export default compose(
 	handleState,
-	onDidMount,
-	onDidUpdate
+	onDidMountAndUpdate
 )(Popular)
