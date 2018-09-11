@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react"
 import PropTypes from "prop-types"
-import Popular from "../popular"
 import AppNavBar from "../app-navbar"
 import Home from "../home"
 import Battle from "../battle"
 import Results from "../battle/results/Results"
+import Popular from "../popular"
 import { CssBaseline } from "@material-ui/core"
 
 import {
